@@ -36,9 +36,9 @@ def rem_files():
 #To get the list of channel and display the channel name and its corresponding dvb_triplet
 def get_channelsdata():    
     
-    requestdata = requests.get(GET_CHANNELS_API)
-    response = requestdata.json()
-    df=json_normalize(response['data'])
+    requestdata = requests.get(GET_CHANNELS_API) #To send the request
+    response = requestdata.json() #To get the response
+    df=json_normalize(response['data']) #To store the response data
     
     print("List of channels with dvb_triplet")
     print(df['channel_name']+' '+df['dvb_triplet'])
@@ -62,7 +62,7 @@ def get_programsdata(epg,todays_date,next_six_days,is_three_channel_data):
         df.to_csv(FILE_LOC,header=False, index=False, mode='a')
     else: 
         df.to_csv(FILE_LOC1,header=False, index=False, mode='a')
-#Code to check the program list for the six days from the current system date                
+#To check the program list for the six days from the current system date                
     if todays_date<=next_six_days:        
         todays_date=todays_date+ timedelta(days=1)        
         get_programsdata(epg,todays_date,next_six_days,is_three_channel_data)
